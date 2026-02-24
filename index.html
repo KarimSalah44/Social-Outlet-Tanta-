@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>بطاقة التواصل - Outlet Tanta</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #1e1c1a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(197,160,89,0.06) 0%, transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(197,160,89,0.06) 0%, transparent 40%);
+    }
+
+    .card {
+      max-width: 360px;
+      width: 100%;
+      background: #0e0d0c;
+      border-radius: 40px 40px 30px 30px;
+      box-shadow: 0 20px 40px 5px rgba(0,0,0,0.8), 0 0 0 2px #C5A059 inset, 0 0 15px #C5A059;
+      border: 1px solid rgba(197,160,89,0.3);
+      position: relative;
+      overflow: visible;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 6px; left: 6px; right: 6px; bottom: 6px;
+      border: 2px dashed rgba(197,160,89,0.4);
+      border-radius: 34px 34px 24px 24px;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* الصورة */
+    .shop-image {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      border-bottom: 2px solid #C5A059;
+      border-radius: 40px 40px 0 0;
+      z-index: 1;
+    }
+
+    .shop-image img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+
+    /* gradient في الأسفل */
+    .shop-image::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .image-text {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 16px 20px;
+      text-align: center;
+    }
+
+    .outlet-tag {
+      font-size: clamp(1.3rem, 6vw, 1.8rem);
+      font-weight: 900;
+      color: #f5e7c8;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+      letter-spacing: 1.5px;
+    }
+
+    .outlet-tag .gold { color: #C5A059; }
+
+    /* وصف */
+    .info-section {
+      padding: 12px 16px 0;
+      position: relative;
+      z-index: 5;
+    }
+
+    .description-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(197,160,89,0.08);
+      border: 1px solid rgba(197,160,89,0.45);
+      border-radius: 50px;
+      padding: 8px 16px;
+      color: #f5e7c8;
+      font-size: clamp(0.82rem, 3.6vw, 0.95rem);
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .description-row i { color: #C5A059; font-size: 1rem; flex-shrink: 0; }
+
+    /* أزرار */
+    .card-footer {
+      padding: 14px 16px 20px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .links-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .link-btn {
+      display: flex;
+      align-items: center;
+      border-radius: 16px;
+      padding: 0;
+      text-decoration: none;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      overflow: hidden;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .link-btn:hover {
+      transform: translateY(-3px);
+      filter: brightness(1.1);
+    }
+
+    /* جانب الأيقونة */
+    .btn-icon {
+      width: 56px;
+      min-width: 56px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .btn-label {
+      flex: 1;
+      text-align: center;
+      font-size: 1rem;
+      padding: 0 4px;
+    }
+
+    .btn-arrow {
+      width: 40px;
+      min-width: 40px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+
+    /* واتساب */
+    .link-btn.whatsapp {
+      background: #111;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(37,211,102,0.35);
+      border: 1.5px solid rgba(37,211,102,0.35);
+    }
+    .link-btn.whatsapp .btn-icon { background: #25D366; color: #fff; }
+    .link-btn.whatsapp:hover { box-shadow: 0 8px 24px rgba(37,211,102,0.6); }
+
+    /* فيسبوك */
+    .link-btn.facebook {
+      background: #111;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(24,119,242,0.35);
+      border: 1.5px solid rgba(24,119,242,0.35);
+    }
+    .link-btn.facebook .btn-icon { background: #1877f2; color: #fff; }
+    .link-btn.facebook:hover { box-shadow: 0 8px 24px rgba(24,119,242,0.6); }
+
+    /* تيك توك */
+    .link-btn.tiktok {
+      background: #010101;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(0,242,234,0.2);
+      border: 1.5px solid rgba(255,255,255,0.1);
+    }
+    .link-btn.tiktok .btn-icon { background: #010101; }
+    .link-btn.tiktok:hover { box-shadow: 0 8px 24px rgba(255,0,80,0.45); }
+
+    .tiktok-icon-wrap {
+      position: relative;
+      width: 26px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tiktok-icon-wrap .t-cyan {
+      position: absolute;
+      font-size: 1.35rem; color: #00f2ea;
+      left: 3px; top: 1px; opacity: 0.8;
+    }
+    .tiktok-icon-wrap .t-red {
+      position: absolute;
+      font-size: 1.35rem; color: #ff0050;
+      right: 2px; top: 1px; opacity: 0.8;
+    }
+    .tiktok-icon-wrap .t-white {
+      position: relative; z-index: 2;
+      font-size: 1.35rem; color: #fff;
+    }
+
+    /* إنستغرام */
+    .link-btn.instagram {
+      background: #111;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(214,41,118,0.35);
+      border: 1.5px solid rgba(214,41,118,0.35);
+    }
+    .link-btn.instagram .btn-icon {
+      background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: #fff;
+    }
+    .link-btn.instagram:hover { box-shadow: 0 8px 24px rgba(214,41,118,0.6); }
+
+    /* تذييل */
+    .footer-note {
+      text-align: center;
+      color: #8a7a5a;
+      font-size: 0.72rem;
+      margin-top: 16px;
+      border-top: 1px dashed rgba(197,160,89,0.4);
+      padding-top: 10px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 360px) {
+      .card { max-width: 340px; }
+      .btn-icon { width: 46px; min-width: 46px; height: 48px; font-size: 1.3rem; }
+      .btn-arrow { width: 34px; min-width: 34px; height: 48px; }
+      .btn-label { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <!-- الصورة -->
+    <div class="shop-image">
+      <img src="https://iili.io/qKvmGX1.jpg" alt="معرض الملابس" onerror="this.src='https://via.placeholder.com/400x300?text=صورة+المحل'">
+      <div class="image-text">
+        <div class="outlet-tag">🏷 <span class="gold">Outlet</span> Tanta</div>
+      </div>
+    </div>
+
+    <!-- الوصف -->
+    <div class="info-section">
+      <div class="description-row">
+        <i class="fas fa-tag"></i>
+        <span>أحدث صيحات الموضة والملابس بأسعار مميزة في طنطا</span>
+      </div>
+    </div>
+
+    <!-- الأزرار -->
+    <div class="card-footer">
+      <div class="links-grid">
+
+        <a href="https://whatsapp.com/channel/0029VbCDdM5KLaHeuZmwIc14" class="link-btn whatsapp" target="_blank">
+          <div class="btn-icon"><i class="fab fa-whatsapp"></i></div>
+          <span class="btn-label">قناة الواتساب</span>
+          <div class="btn-arrow"><i class="fas fa-chevron-left"></i></div>
+        </a>
+
+        <a href="https://www.facebook.com/share/1Vj2xEL6ua/" class="link-btn facebook" target="_blank">
+          <div class="btn-icon"><i class="fab fa-facebook-f"></i></div>
+          <span class="btn-label">فيسبوك</span>
+          <div class="btn-arrow"><i class="fas fa-chevron-left"></i></div>
+        </a>
+
+        <a href="https://www.tiktok.com/@outlet.tanta?_r=1&_t=ZS-94By4btHkP2" class="link-btn tiktok" target="_blank">
+          <div class="btn-icon">
+            <div class="tiktok-icon-wrap">
+              <i class="fab fa-tiktok t-cyan"></i>
+              <i class="fab fa-tiktok t-red"></i>
+              <i class="fab fa-tiktok t-white"></i>
+            </div>
+          </div>
+          <span class="btn-label">تيك توك</span>
+          <div class="btn-arrow"><i class="fas fa-chevron-left"></i></div>
+        </a>
+
+        <a href="https://www.instagram.com/outlet_tanta?igsh=MWNmMDZvcmhncnlmag==" class="link-btn instagram" target="_blank">
+          <div class="btn-icon"><i class="fab fa-instagram"></i></div>
+          <span class="btn-label">إنستغرام</span>
+          <div class="btn-arrow"><i class="fas fa-chevron-left"></i></div>
+        </a>
+
+      </div>
+      <div class="footer-note">📍 العنوان: طنطا – منطقة سيجر – خلف المنطقة الأزهرية – بجوار غزة كافيه. ☕ مستنينكوا تنورونا 😉✨</div>
+    </div>
+
+  </div>
+</body>
+</html>
